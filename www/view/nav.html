@@ -1,0 +1,593 @@
+<!-- 首页功能入口，定位absolute。z-index：1 -->
+<div class="first">
+    <header class="header clearfix">
+        <div class="back fl"><a></a></div>
+        <div class="fl calcTit">房税计算</div>
+    </header>    
+
+    <div class="firstcon">
+        <div class="firstm">
+            <div class="firstnav">
+                <div class="inputline clearfix sell">
+                    <div class="fl navl"><span>卖房</span></div>
+                    <div class="fr navr"><i></i></div>
+                </div>
+                <div class="inputline clearfix buy">
+                    <div class="fl navl"><span>买房</span></div>
+                    <div class="fr navr"><i></i></div>
+                </div>
+            </div>
+
+            <div class="firstnav firstnavhelp">
+                <div class="inputline clearfix help">
+                    <div class="fl navl"><span>帮助</span></div>
+                    <div class="fr navr"><i></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="icon">
+<!--         <i></i> -->
+<!--         <p>上海地区最精准的房税计算</p> -->
+    </div>
+
+</div>
+
+<div class="mask">
+    <div class="errortip">
+        <p>{{errorcon}}</p>
+        <input type="button" class="hidemask" value="好" />
+    </div>
+</div>
+
+
+<!-- 买房功能区，定位abolute，z-index: 10 -->
+<div class="mainbuy fl" id="mainbuy">
+    <header class="header clearfix">
+        <div class="back fl"><a></a></div>
+        <div class="fl calcTit">买房税费</div>
+    </header>
+
+    <div class="calcbuy" id="calcbuy">
+        <form name="buyForm" class="buyForm">
+            <!--合同价部分--borderbtrd-->
+            <div class="calcline">
+                <div class="blconner"></div>
+                <div class="inputline clearfix row buyfirstline">
+                    <div class="inputlinel fl">合同价</div>
+                    <div class="inputliner fr clearfix">
+                        <div class="inputarea">
+                            <input class="input" type="number" name="contractPrice"  ng-model="filter1.contractPrice" num-pattern onBlur="if(this.value == '') this.value = 0;" onFocus="if(this.value == 0)  this.value = '';">
+                            <span class="inputdes">万元</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!--面积部分-->
+                <div class="inputline clearfix row">
+                    <div class="inputlinel fl">面积</div>
+                    <div class="inputliner fr clearfix">
+                        <div class="inputarea">
+                            <input class="input" type="number" name="area" ng-model="filter1.area" num-pattern onBlur="if(this.value == '') this.value = 0;" onFocus="if(this.value == 0)  this.value = '';" >
+                            <span class="inputdes">平米</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!--房屋性质-->
+                <div class="inputline clearfix buytab row">
+                    <div class="inputlinel fl">房屋性质</div>
+                    <div class="inputliner fr clearfix">
+                        <!--开关按钮，模拟radio的check事件-->
+                        <div class="tabchoose" >
+                            <input type="checkbox" ng-model="filter1.buyhouseType" name="tabchoose" class="tabchoose-checkbox" id="buyhouseType">
+                            <label class="tabchoose-label">
+                                <div class="tabbk" id="tabbk"></div>
+                                <div class="tabr" id="tabr">非普通房</div>
+                                <div class="tabl" id="tabl">普通房</div>
+                            </label>
+                        </div>
+                        <!--开关按钮，模拟radio的check事件 end-->
+                    </div>
+                </div>
+
+                <!--是否首套房-->
+                <div class="inputline clearfix buytab row">
+                    <div class="inputlinel fl">首套房</div>
+                    <div class="inputliner fr clearfix">
+                        <!--开关按钮，模拟radio的check事件-->
+                        <div class="tabchoose" >
+                            <input type="checkbox" ng-model="filter1.isFirst" name="tabchoose" class="tabchoose-checkbox" id="isFirst">
+                            <label class="tabchoose-label">
+                                <div class="tabbk"></div>
+                                <div class="tabr">非</div>
+                                <div class="tabl">是</div>
+                            </label>
+                        </div>
+                        <!--是否首套房 end-->
+                    </div>
+                </div>
+
+                <!--是否沪籍-->
+                <div class="inputline clearfix buytab row issh">
+                    <div class="inputlinel fl">上海户籍</div>
+                    <div class="inputliner fr clearfix">
+                        <!--开关按钮，模拟radio的check事件-->
+                        <div class="tabchoose" >
+                            <input type="checkbox" ng-model="filter1.isSh" name="tabchoose" class="tabchoose-checkbox" id="isSh">
+                            <label class="tabchoose-label">
+                                <div class="tabbk"></div>
+                                <div class="tabr">非</div>
+                                <div class="tabl">是</div>
+                            </label>
+                        </div>
+                        <!--是否沪籍 end-->
+                    </div>
+                </div>
+
+                <!--买方国籍-->
+                <div class="inputline clearfix buytab row row1 inputlinenone">
+                    <div class="inputlinecon inputlinecon1 inputlinecontop">
+                        <div class="inputlinel fl">买方国籍</div>
+                        <div class="inputliner fr clearfix">
+                            <!--开关按钮，模拟radio的check事件-->
+                            <div class="tabchoose" >
+                                <input type="checkbox" ng-model="filter1.buynative" name="tabchoose" class="tabchoose-checkbox" id="buynative">
+                                <label class="tabchoose-label">
+                                    <div class="tabbk"></div>
+                                    <div class="tabr">非大陆</div>
+                                    <div class="tabl">中国大陆</div>
+                                </label>
+                            </div>
+                            <!--买方国籍 end-->
+                        </div>
+                    </div>
+                </div>
+
+                <!--已有住房面积部分 ng-show="existShow"-->
+                <div class="inputline clearfix row row2 inputlinenone">
+                    <div class="inputlinecon inputlinecon2 inputlinecontop">
+                        <div class="inputlinel fl">已有住房面积</div>
+                        <div class="inputliner fr clearfix">
+                            <div class="inputarea">
+                                <input class="input" type="number" name="existArea"  ng-model="filter1.existArea" num-pattern onBlur="if(this.value == '') this.value = 0;" onFocus="if(this.value == 0)  this.value = '';">
+                                <span class="inputdes">平米</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--已有住房面积部分 end-->
+
+                <!--家庭人口部分 ng-show="existShow"-->
+                <div class="inputline clearfix row row2 row3 inputlinenone">
+                    <div class="inputlinecon inputlinecon3 inputlinecontop">                   
+                        <div class="inputlinel fl">家庭人口</div>
+                        <div class="inputliner familynum fr clearfix">
+                            <select ng-model="filter1.familyNum">
+                                <option value="1">1人</option>
+                                <option value="2">2人</option>
+                                <option value="3">3人</option>
+                                <option value="4">4人</option>
+                                <option value="5">5人</option>
+                                <option value="6">6人</option>
+                                <option value="7">7人</option>
+                                <option value="8">8人</option>
+                                <option value="9">9人</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!--家庭人口部分 end-->
+
+            </div>
+            <p class="pbtn">
+                <input type="submit" ng-click="showBuyResult();"  class="submitbtn buybtn" value="计算税费">
+            </p>
+        </form>
+    </div>
+</div>
+
+<!-- 买房结果区,定位abolute，z-index: 20 -->
+<div class="buyresult fl">
+    <div class="header clearfix">
+        <div class="back fl"><a></a></div>
+        <div class="fl calcTit">买房税费</div>
+    </div>
+
+    <!--结果页：&&resultShow -->
+    <div class="resultcon">
+        <div class="resultm">
+            <div class="resultarea">
+            <p class="unin">单位:万元</p>
+            <p class="resultp clearfix lastprice">
+                <span class="fl resulttit resulttit">总支付</span>
+                <span class="resultprice fr">{{filter1.cost | number:4}}</span>
+            </p>
+            
+            <p class="resultp clearfix bussnesstax">
+                <span class="fl resulttit">合同价</span>
+                <span class="fr resultprice">{{filter1.contractPrice | number:4}}</span>
+            </p>
+            <p class="resultp clearfix">
+                <span class="fl resulttit">房产税</span>
+                <span class="fr resultprice">{{filter1.buildingTax | number:4}}</span>
+            </p>
+            <p class="resultp clearfix">
+                <span class="fl resulttit">契税</span>
+                <span class="fr resultprice">{{filter1.deedTax | number:4}}</span>
+            </p>
+            <p class="resultp clearfix">
+                <span class="fl resulttit">交易手续费</span>
+                <span class="fr resultprice">{{filter1.tradingFee | number:4}}</span>
+            </p>
+            <p class="resultp clearfix">
+                <span class="fl resulttit">交易登记费</span>
+                <span class="fr resultprice">{{filter1.registFee | number:4}}</span>
+            </p>
+            <p class="resultp clearfix">
+                <span class="fl resulttit">配图费</span>
+                <span class="fr resultprice">{{filter1.imgFee | number:4}}</span>
+            </p>
+            <p class="resultp clearfix">
+                <span class="fl resulttit">印花税</span>
+                <span class="fr resultprice">{{filter1.certificateFee | number:4}}</span>
+            </p>
+            <p class="resultp clearfix">
+                <span class="fl resulttit">公证费</span>
+                <span class="fr resultprice">{{filter1.notaryFee | number:4}}</span>
+            </p>
+            <p class="resultp clearfix">
+                <span class="fl resulttit">佣金</span>
+                <span class="fr resultprice">{{filter1.commissionFee | number:4}}</span>
+            </p>
+            <p class="resultp clearfix">
+                <span class="fl resulttit totaltax">税费合计</span>
+                <span class="fr resultprice">{{filter1.totalTax | number:4}}</span>
+            </p>
+            <p class="tips">※ 以上结果仅供上海地区参考</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 卖房功能区，定位abolute，z-index: 30 -->
+<div class="mainsell fl" id="mainsell">
+    <div class="header clearfix">
+        <div class="back fl"><a></a></div>
+        <div class="fl calcTit">卖房税费</div>
+    </div>
+
+    <div class="calcsell" id="calcsell">
+        <!--换算方式：-->
+        <form name="sellForm" id="sellForm" class="sellForm">
+
+            <div class="inputlinetype clearfix row caltype" id="caltype">
+                <div class="tabchoose tabchooseone">
+                    <input type="checkbox" ng-model="calType" name="tabchoose" class="tabchoose-checkbox" id="calType">
+                    <label class="tabchooseone-label">
+                        <div class="tabbkone"></div>
+                        <div class="tabrone">从到手价算合同价</div>
+                        <div class="tablone">从合同价算到手价</div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="calcwrap">
+                <div class="calcline" id="calcline">
+                    <div class="blconner"></div>
+                    <!--合同价/到手价-->
+                    <div class="inputline clearfix changetype sellfirstline row">
+                        <div class="contract fl {{contract}}">
+                            <div class="inputlinel fl">合同价</div>
+                            <div class="inputliner fr clearfix">
+                                <div class="inputarea">
+                                    <input class="input" type="number" name="contractPrice1" ng-model="filter2.contractPrice" value="100" num-pattern onBlur="if(this.value == '') this.value = 0;" onFocus="if(this.value == 0)  this.value = '';">
+                                    <div class="bk"></div>
+                                    <span class="inputdes">万元</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="getprice fl {{contract}} row">
+                            <div class="inputlinel fl">到手价</div>
+                            <div class="inputliner fr clearfix">
+                                <div class="inputarea">
+                                    <input class="input" type="number" name="lastPrice1" ng-model="filter2.lastPrice" num-pattern onBlur="if(this.value == '') this.value = 0;" onFocus="if(this.value == 0)  this.value = '';">
+                                    <div class="bk"></div>
+                                    <span class="inputdes">万元</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--购入价部分-->
+                    <div class="inputline clearfix row">
+                        <div class="inputlinel fl">购入价</div>
+                        <div class="inputliner fr clearfix">
+                            <div class="inputarea">
+                                <input type="number" name="purchasePrice" ng-model="fee.purchasePrice" num-pattern onBlur="if(this.value == '') this.value = 0;" onFocus="if(this.value == 0)  this.value = '';">
+                                <div class="bk"></div>
+                                <span class="inputdes">万元</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--面积部分-->
+                    <div class="inputline clearfix row">
+                        <div class="inputlinel fl">面积</div>
+                        <div class="inputliner fr clearfix">
+                            <div class="inputarea">
+                                <input type="number" name="area" ng-model="filter2.area" num-pattern onBlur="if(this.value == '') this.value = 0;" onFocus="if(this.value == 0)  this.value = '';">
+                                <div class="bk"></div>
+                                <span class="inputdes">平米</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--所在区域部分-->
+                    <div class="inputline clearfix row">
+                        <div class="inputlinel fl">所在区域</div>
+                        <div class="inputliner arearegion fr clearfix">
+                            <select ng-model="filter2.region" class="fr region" ng-options="r.name for r in filter2.regions">
+                            </select>
+                        </div>
+                    </div>
+
+                    <!--房屋性质-->
+                    <div class="inputline clearfix tab row">
+                        <div class="inputlinel fl">房屋性质</div>
+                        <div class="inputliner fr clearfix">
+                            <!--开关按钮，模拟radio的check事件-->
+                            <div class="tabchoose" >
+                                <input type="checkbox" ng-model="filter2.houseType" name="tabchoose" class="tabchoose-checkbox" id="houseType">
+                                <label class="tabchoose-label">
+                                    <div class="tabbk"></div>
+                                    <div class="tabr">非普通房</div>
+                                    <div class="tabl">普通房</div>
+                                </label>
+                            </div>
+                            <!--开关按钮，模拟radio的check事件 end-->
+                        </div>
+                    </div>
+
+                    <!--买入时间-->
+                    <div class="inputline clearfix tab row">
+                        <div class="inputlinel fl">买入时间</div>
+                        <div class="inputliner fr clearfix">
+                            <!--开关按钮，模拟radio的check事件-->
+                            <div class="tabchoose">
+                                <input type="checkbox" ng-model="filter2.buyTime" name="buyTime" class="tabchoose-checkbox" id="buyTime">
+                                <label class="tabchoose-label">
+                                    <div class="tabbk"></div>
+                                    <div class="tabr">不满5年</div>
+                                    <div class="tabl">满5年</div>
+                                </label>
+                            </div>
+                            <!--开关按钮，模拟radio的check事件 end-->
+                        </div>
+                    </div>
+
+                    <!--是否唯一-->
+                    <div class="inputline clearfix tab row">
+                        <div class="inputlinel fl">唯一</div>
+                        <div class="inputliner fr clearfix">
+                            <!--开关按钮，模拟radio的check事件-->
+                            <div class="tabchoose">
+                                <input type="checkbox" ng-model="filter2.isOnly" name="isOnly" class="tabchoose-checkbox" id="isOnly">
+                                <label class="tabchoose-label">
+                                    <div class="tabbk"></div>
+                                    <div class="tabr">否</div>
+                                    <div class="tabl">是</div>
+                                </label>
+                            </div>
+                            <!--开关按钮，模拟radio的check事件 end-->
+                        </div>
+                    </div>
+
+                    <!--是否提供原始发票-->
+                    <div class="inputline clearfix tab row">
+                        <div class="inputlinel fl">原始发票</div>
+                        <div class="inputliner fr clearfix">
+                            <!--开关按钮，模拟radio的check事件-->
+                            <div class="tabchoose">
+                                <input type="checkbox" ng-model="filter2.hasInvoice" name="hasInvoice" class="tabchoose-checkbox" id="hasInvoice" >
+                                <label class="tabchoose-label">
+                                    <div class="tabbk"></div>
+                                    <div class="tabr">不提供</div>
+                                    <div class="tabl">提供</div>
+                                </label>
+                            </div>
+                            <!--开关按钮，模拟radio的check事件 end-->
+                        </div>
+                    </div>
+                    <!--是否提供原始发票 end-->
+
+                    <!--是否有购入契税-->
+                    <div class="inputline clearfix tab row">
+                        <div class="inputlinel fl">购入契税</div>
+                        <div class="inputliner fr clearfix">
+                            <!--开关按钮，模拟radio的check事件-->
+                            <div class="tabchoose">
+                                <input type="checkbox" ng-model="filter2.isDeedTax" name="isDeedTax" class="tabchoose-checkbox" id="isDeedTax">
+                                <label class="tabchoose-label">
+                                    <div class="tabbk"></div>
+                                    <div class="tabr">无</div>
+                                    <div class="tabl">有</div>
+                                </label>
+                            </div>
+                            <!--开关按钮，模拟radio的check事件 end-->
+                        </div>
+                    </div>
+
+                    <!--购入契税费用 inputlinecon1-->
+                    <div class="inputline clearfix row buyDeedTax">
+                        <div class="inputlinecon inputlinecon1">
+                            <div class="inputlinel fl">购入契税</div>
+                            <div class="inputliner fr clearfix">
+                                <div class="inputarea">
+                                    <input type="number" name="buyDeedTax" ng-model="fee.buyDeedTax" num-pattern onBlur="if(this.value == '') this.value = 0;" onFocus="if(this.value == 0)  this.value = '';">
+                                    <div class="bk"></div>
+                                    <span class="inputdes">万元</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--买方国籍-->
+                    <div class="inputline clearfix ischina tab row">
+                        <div class="inputlinel fl">大陆国籍</div>
+                        <div class="inputliner fr clearfix">
+                            <!--开关按钮，模拟radio的check事件-->
+                            <div class="tabchoose">
+                                <input type="checkbox" ng-model="filter2.native" name="native" class="tabchoose-checkbox" id="native">
+                                <label class="tabchoose-label">
+                                    <div class="tabbk"></div>
+                                    <div class="tabr">否</div>
+                                    <div class="tabl">是</div>
+                                </label>
+                            </div>
+                            <!--开关按钮，模拟radio的check事件 end-->
+                        </div>
+                    </div>
+
+                    <!--个人所得税 ng-hide="noIndeedTax"-->
+                    <div  class="inputline clearfix row row11 inputlinenone">
+                        <div class="inputlinecon inputlinecon1 inputlinecontop">
+                            <div class="inputlinel fl">个人所得税</div>
+                            <div class="inputliner fr clearfix">
+                                <!--select事件-->
+                                <div class="calctype fr clearfix {{calctypew}}" >
+                                    <div ng-show="profitShow" class="calctypel fl" id="calctype1">
+                                        <input type="radio" name="taxCalType" value="1" ng-model="taxCalType" class="calctype1">
+                                        <div class="forcalctype1" for="calctype1">利润</div>
+                                    </div>
+                                    <div ng-show="totalShow" class="calctyper fl" id="calctype2">
+                                        <input type="radio" name="taxCalType" value="2" ng-model="taxCalType" class="calctype2">
+                                        <div class="forcalctype2" for="calctype2">全额</div>
+                                    </div>
+                                </div>
+                                <!--个人所得税 end-->
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <!--贷款利息  ng-show="profitShow&&(taxCalType==1)"-->
+                    <div class="inputline clearfix row row22 inputlinenone">
+                        <div class="inputlinecon inputlinecon2 inputlinecontop">
+                            <div class="inputlinel fl">贷款利息</div>
+                            <div class="inputliner fr clearfix">
+                                <div class="inputarea">
+                                    <input type="number" name="interest"  ng-model="fee.interest"  num-pattern onBlur="if(this.value == '') this.value = 0;" onFocus="if(this.value == 0)  this.value = '';">
+                                    <div class="bk"></div>
+                                    <span class="inputdes">万元</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--贷款利息 end-->
+
+                    <!--装修成本-->
+                    <div class="inputline clearfix row row22 inputlinenone">
+                        <div class="inputlinecon inputlinecon3 inputlinecontop">
+                            <div class="inputlinel fl">装修成本</div>
+                            <div class="inputliner fr clearfix">
+                                <div class="inputarea">
+                                    <input type="number" name="decorationCost" ng-model="fee.decorationCost"  num-pattern onBlur="if(this.value == '') this.value = 0;" onFocus="if(this.value == 0)  this.value = '';">
+                                    <div class="bk"></div>
+                                    <span class="inputdes">万元</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--装修成本 end-->
+                </div>
+
+                <p class="pbtn">
+                    <input type="submit" ng-click="showSellResult()"  class="submitbtn sellbtn" value="计算税费">
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- 卖房结果区，定位abolute，z-index: 40 -->
+<div class="sellresult fl">
+    <div class="header clearfix">
+        <div class="back fl"><a></a></div>
+        <div class="fl calcTit">卖房税费</div>
+    </div>
+
+    <div class="resultcon">
+        <div class="resultm">
+            <div class="resultarea">
+            <p class="unin">单位:万元</p>
+            <div>
+                <p class="resultp clearfix lastprice" ng-hide="calType">
+                    <span class="fl resulttit">到手价</span>
+                    <span class="resultprice fr">{{filter2.lastPrice | number:4}}</span>                    
+                </p>
+                <p class="resultp clearfix lastprice" ng-show="calType">
+                    <span class="fl resulttit">合同价</span>
+                    <span class="resultprice fr">{{filter2.contractPrice | number:4}}</span>                    
+                </p>
+            </div>
+            <p class="resultp clearfix" ng-hide="calType">
+                <span class="fl resulttit">合同价</span>
+                <span class="fr resultprice">{{filter2.contractPrice | number:4}}</span>
+            </p>
+            <p class="resultp clearfix" ng-show="calType">
+                <span class="fl resulttit">到手价</span>
+                <span class="fr resultprice">{{filter2.lastPrice | number:4}}</span>
+            </p>
+            <p class="resultp clearfix">
+                <span class="fl resulttit">营业税</span>
+                <span class="fr resultprice">{{filter2.businessTaxResult | number:4}}</span>
+            </p>
+            <p class="resultp clearfix">
+                <span class="fl resulttit">个税</span>
+                <span class="fr resultprice">{{filter2.indeedTaxResult | number:4}}</span>
+            </p>
+            <p class="resultp clearfix">
+                <span class="fl resulttit">交易手续费</span>
+                <span class="fr resultprice">{{filter2.tradingFee | number:4}}</span>
+            </p>
+            <p class="resultp clearfix">
+                <span class="fl resulttit">公证费</span>
+                <span class="fr resultprice">{{filter2.notaryFee | number:4}}</span>
+            </p>
+            <p class="resultp clearfix">
+                <span class="fl resulttit">佣金</span>
+                <span class="fr resultprice">{{filter2.commissionFee | number:4}}</span>
+            </p>
+            <p class="resultp clearfix">
+                <span class="fl resulttit totaltax">税费合计</span>
+                <span class="fr resultprice">{{filter2.totalTax | number:4}}</span>
+            </p>
+            <p class="tips">※ 以上结果仅供上海地区参考</p>
+        </div>
+        </div>
+    </div>
+</div>
+
+<!-- 帮助页面，定位abolute，z-index: 50 -->
+<div class="mainhelp fl" id="mainhelp">
+    <header class="header clearfix">
+        <div class="back fl"><a href="#/first"></a></div>
+        <div class="fl calcTit">帮助中心</div>
+    </header>
+
+    <div class="helpcon">
+        <div class="helpm">
+            <div class="helpall">
+                <div class="helptips">
+                    <p>当前只可计算上海地区房产交易税费</p>
+                </div>
+                <div class="helpone" ng-repeat="help in helpall">
+                    <p class="helpques">{{help.helpques}}</p>
+                    <p class="helpans">{{help.helpans}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
